@@ -1,6 +1,6 @@
-#Question 1 - Size of the DataSet,Missing values & 
 import numpy as np
 import pandas as pd
+import streamlit as st
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -49,4 +49,5 @@ scaler = StandardScaler()
 
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
+
 
