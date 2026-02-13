@@ -30,7 +30,10 @@ def train_all_models(df):
     y = df[TARGET]
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
+        X, y,
+        test_size=0.2,
+        random_state=42,
+        stratify=y   # Important for multi-class
     )
 
     scaler = StandardScaler()
@@ -38,38 +41,50 @@ def train_all_models(df):
     X_test_scaled = scaler.transform(X_test)
 
     models = {
-        "Logistic Regression": LogisticRegression(max_iter=1000),
+        "Logistic Regression": LogisticRegression(max_iter=1000, multi_class="auto"),
         "Decision Tree": DecisionTreeClassifier(),
         "KNN": KNeighborsClassifier(),
         "Naive Bayes": GaussianNB(),
         "Random Forest": RandomForestClassifier(),
-        "XGBoost": XGBClassifier(eval_metric="logloss", use_label_encoder=False)
+        "XGBoost": XGBClassifier(
+            eval_metric="mlogloss",
+            use_label_encoder=False
+        )
     }
 
     results = {}
 
     for name, model in models.items():
 
-        # KNN & Logistic require scaled data
         if name in ["Logistic Regression", "KNN"]:
             model.fit(X_train_scaled, y_train)
             y_pred = model.predict(X_test_scaled)
-            y_prob = model.predict_proba(X_test_scaled)[:, 1]
+            y_prob = model.predict_proba(X_test_scaled)
         else:
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
-            y_prob = model.predict_proba(X_test)[:, 1]
+            y_prob = model.predict_proba(X_test)
 
         results[name] = {
             "Accuracy": accuracy_score(y_test, y_pred),
-            "AUC": roc_auc_score(y_test, y_prob),
-            "Precision": precision_score(y_test, y_pred),
-            "Recall": recall_score(y_test, y_pred),
-            "F1": f1_score(y_test, y_pred),
+
+            # AUC FOR MULTI-CLASS
+            "AUC": roc_auc_score(
+                y_test,
+                y_prob,
+                multi_class="ovr",
+                average="weighted"
+            ),
+
+            # METRICS FOR MULTI-CLASS
+            "Precision": precision_score(y_test, y_pred, average="weighted"),
+            "Recall": recall_score(y_test, y_pred, average="weighted"),
+            "F1": f1_score(y_test, y_pred, average="weighted"),
+
             "MCC": matthews_corrcoef(y_test, y_pred),
+
             "Confusion Matrix": confusion_matrix(y_test, y_pred),
             "Classification Report": classification_report(y_test, y_pred)
         }
 
     return results
-
