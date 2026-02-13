@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from model.train_models import train_all_models
+from train_models import train_all_models
 
 st.set_page_config(page_title="ML Classification Dashboard", layout="wide")
 
@@ -71,3 +71,4 @@ if uploaded_file is not None:
 
 else:
     st.info("Please upload a CSV file to continue.")
+
