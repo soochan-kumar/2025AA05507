@@ -24,7 +24,7 @@ from xgboost import XGBClassifier
 
 def train_all_models(df):
 
-    TARGET = "Diabetes_binary"
+    TARGET = "Diabetes_012"
 
     X = df.drop(TARGET, axis=1)
     y = df[TARGET]
@@ -72,3 +72,4 @@ def train_all_models(df):
         }
 
     return results
+
