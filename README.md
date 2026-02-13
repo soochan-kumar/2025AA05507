@@ -39,5 +39,6 @@ Ensemble models outperform traditional classifiers.
 ## 9. How to Run
 ```bash
 pip install -r requirements.txt
-streamlit run StreamLitApp.py
+streamlit run app.py
+
 
