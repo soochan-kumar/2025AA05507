@@ -7,7 +7,7 @@ from train_models import train_all_models
 
 st.set_page_config(page_title="ML Classification Dashboard", layout="wide")
 
-st.title("Diabetes Classification Model Comparison")
+st.title("Diabetes Multi-Class-Classification Model Comparison")
 
 st.sidebar.header("Upload Dataset")
 uploaded_file = st.sidebar.file_uploader("Upload CSV File", type=["csv"])
@@ -71,4 +71,5 @@ if uploaded_file is not None:
 
 else:
     st.info("Please upload a CSV file to continue.")
+
 
