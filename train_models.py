@@ -41,14 +41,13 @@ def train_all_models(df):
     X_test_scaled = scaler.transform(X_test)
 
     models = {
-        "Logistic Regression": LogisticRegression(max_iter=1000, multi_class="auto"),
+        "Logistic Regression": LogisticRegression(max_iter=1000),
         "Decision Tree": DecisionTreeClassifier(),
         "KNN": KNeighborsClassifier(),
         "Naive Bayes": GaussianNB(),
         "Random Forest": RandomForestClassifier(),
         "XGBoost": XGBClassifier(
-            eval_metric="mlogloss",
-            use_label_encoder=False
+            eval_metric="mlogloss"
         )
     }
 
@@ -88,3 +87,4 @@ def train_all_models(df):
         }
 
     return results
+
