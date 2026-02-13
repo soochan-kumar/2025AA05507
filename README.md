@@ -36,6 +36,9 @@ Naive Bayes	        0.7515	0.787408	0.789855	0.7515	0.764773	0.300707
 Random Forest	      0.8275	0.792621	0.778129	0.8275	0.78435	  0.235118
 XGBoost	            0.8225	0.795623	0.778444	0.8225	0.792142	0.260992
 
+<img width="475" height="194" alt="image" src="https://github.com/user-attachments/assets/d6becd10-0ea2-42f4-bd0c-2ce46bca7ae1" />
+
+
 ## 7. Observations
 ML Model Name	           Observation about model performance
 Logistic Regression	       Stable and interpretable model; performs well on linearly separable data.
@@ -52,6 +55,7 @@ Ensemble models outperform traditional classifiers.
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
+
 
 
 
